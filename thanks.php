@@ -11,15 +11,33 @@
 <?php
   require_once('db_connect.php');
 
+  // 変数の初期化 & 日時の取得
+  date_default_timezone_set('Asia/Tokyo');
+  $sql = null;
+  $res = null;
+  $dbh = null;
+  $date = date('Y-m-d H:i:s');
+
   try {
     // データベースに接続
     $dbh = db_connect();
 
     //例外処理を投げるようにする(throw)
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $user_name   = $_REQUEST['user_name'];
+    $email   = $_REQUEST['email'];
+    $user_name   = $_REQUEST['contact_us_type'];
+    $user_name   = $_REQUEST['contents'];
+    //データベース処理// SQL作成
+    $sql = "INSERT INTO contact (
+		       user_name, email, contact_us_type, contents
+	) VALUES (
+		       '$user_name', '$email', '$contact_us_type', '$contents'	)";
 
-    //データベース処理
-    print('接続に成功しました。<br>');
+    // SQL実行
+    $res = $dbh->query($sql);
+
+
 
     //データベース接続切断
     $statement = null;
