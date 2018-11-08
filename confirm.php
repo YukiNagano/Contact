@@ -1,4 +1,20 @@
 <?php
+echo "<pre >";
+var_dump($_POST);
+echo "</pre >";
+if (!empty($_POST)){
+
+  $user_name = $_POST['user_name'];
+  $email = $_POST['email'];
+  $contact_us_type = $_POST['contact_us_type'];
+  $contents = $_POST['contents'];
+
+  $user_name = htmlspecialchars($user_name, ENT_QUOTES);
+  $email = htmlspecialchars($email, ENT_QUOTES);
+  $contact_us_type = htmlspecialchars($contact_us_type, ENT_QUOTES);
+  $contents = htmlspecialchars($contents, ENT_QUOTES);
+
+}
 //メール呼び出し
 require 'send_mail.php';
 ?>
@@ -19,17 +35,17 @@ require 'send_mail.php';
 
       <div class="form-group">
         <label for="exampleFormControlName">氏名</label>
-        <p  class="form-control-static" id="exampleFormControlName"><?php echo $_POST['user_name']; ?></p>
+        <p  class="form-control-static" id="exampleFormControlName"><?php echo $user_name; ?></p>
       </div>
 
       <div class="form-group">
         <label for="exampleFormControlEmail">メールアドレス</label>
-        <p class="form-control-static" id="exampleFormControlEmail"><?php echo $_POST['email']; ?></p>
+        <p class="form-control-static" id="exampleFormControlEmail"><?php echo $email; ?></p>
       </div>
 
       <div class="form-group">
         <label for="FormControlSelect">お問い合わせ種別</label>
-        <p><?php switch ($_POST['contact_us_type']) {
+        <p><?php switch ($contact_us_type) {
           case "about_site":
             echo 'サイトについて';
             break;
@@ -47,15 +63,15 @@ require 'send_mail.php';
 
       <div class="form-group">
         <label for="FormControlTextarea1">お問い合わせ内容</label>
-        <p><?php echo nl2br($_POST['contents']); ?></p>
+        <p><?php echo nl2br($contents); ?></p>
       </div>
 
 				<input type="button" onclick="history.back();" value="前に戻る">
         <input type="submit" name="btn_submit" value="送信">
-        <input type="hidden" name="your_name" value="<?php echo $_POST['user_name']; ?>">
-        <input type="hidden" name="email" value="<?php echo $_POST['email']; ?>">
-        <input type="hidden" name="contact_us_type" value="<?php echo $_POST['contact_us_type']; ?>">
-        <input type="hidden" name="contents" value="<?php echo $_POST['contents']; ?>">
+        <input type="hidden" name="your_name" value="<?php echo $user_name; ?>">
+        <input type="hidden" name="email" value="<?php echo $email; ?>">
+        <input type="hidden" name="contact_us_type" value="<?php echo $contact_us_type; ?>">
+        <input type="hidden" name="contents" value="<?php echo $contents; ?>">
       </form>
     </div>
 	</body>
